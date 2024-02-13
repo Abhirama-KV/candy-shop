@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
+import './index.css';
+
+
+import Header from './components/Header';
+import Body from './components/Body/Body';
+import CandyContextProvider from './store/CandyContextProcider';
+import UseContextProvider from './store/UseContextProvider';
+import Cart from './components/Cart/Cart';
+
+const App = ()=> {
+  
+      const [showCart,setShowCart] = useState(false);
+    
+    const show = ()=>{
+      setShowCart(true)
+    }
+    
+    const dontShow = ()=>{
+      setShowCart(false);
+    }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <React.StrictMode>
+    <UseContextProvider>
+    <CandyContextProvider>
+      {showCart && <Cart close={dontShow}/>}
+      <Header show={show}/>
+      <Body />
+      
+    </CandyContextProvider>
+    </UseContextProvider>
+  // </React.StrictMode>
   );
 }
 
